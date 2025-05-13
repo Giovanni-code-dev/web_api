@@ -80,7 +80,7 @@ router.post("/register", async (req, res, next) => {
     // Invia email di benvenuto
     await sendEmail({
       to: newUser.email,
-      from: 'giovanni.dellelenti@gmail.com',
+      from: process.env.SENDGRID_API_FROM,
       subject: 'Benvenuto nel blog!',
       text: `Ciao ${newUser.name}, benvenuto nella nostra community!`,
       html: `<strong>Benvenuto ${newUser.name}</strong><br>Siamo felici che tu sia con noi.`,

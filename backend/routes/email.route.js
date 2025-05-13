@@ -6,11 +6,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     await sendEmail({
-        to: '',      
-        from: 'giovanni.dellelenti@gmail.com',
+        to: process.env.SENDGRID_API_TO,      
+        from: process.env.SENDGRID_API_FROM,
         subject: 'Test SendGrid da backend',
-        text: 'Questo è un test vero e proprio!',
-        html: '<strong>Arrivata davvero</strong>',
+        text: 'Questo è un test!',
+        html: '<strong>ciao!</strong>',
       });
 
     res.status(200).json({ message: 'Email inviata!' });

@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
     // Invia email all'autore
     await sendEmail({
       to: foundAuthor.email,
-      from: 'giovanni.dellelenti@gmail.com',
+      from: process.env.SENDGRID_API_FROM,
       subject: 'Hai pubblicato un nuovo post!',
       text: `Ciao ${foundAuthor.name}, hai appena pubblicato il post: "${title}".`,
       html: `<p> Ciao <strong>${foundAuthor.name}</strong>!<br>
