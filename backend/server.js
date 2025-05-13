@@ -28,25 +28,6 @@ app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     next();
 });
-//esempio 
-app.post('/', (req, res) => {
-
-    console.log(req.body)
-
-    if (req.body.cognome) {
-        req.body.cognome = "fucchi"
-    }
-    req.body.acqua = "amara"
-
-    if (req.body.number){
-
-        req.body.number = parseInt(req.body.number)+ 10
-
-    }
-
-    res.json(req.body);
-
-});
 
 // Route per gli autori
 app.use('/authors', authorsRouter);

@@ -5,8 +5,6 @@ import cloudinaryUploader from '../uploads/cloudinary.js'
 import { JWTAuthMiddleware, adminOnly } from '../lib/middlewares.js'
 import { sendEmail } from '../utils/sendEmail.js';
 
-
-
 const router = express.Router()
 
 // registrazione
@@ -51,10 +49,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-
-
-// altre routes
-
+// get all
 router.get('/', JWTAuthMiddleware, async (req, res) => {
   try {
     const authors = await Author.find()
@@ -63,7 +58,7 @@ router.get('/', JWTAuthMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Errore durante il recupero degli autori' })
   }
 })
-
+// get by id
 router.get('/:id', JWTAuthMiddleware, async (req, res) => {
   try {
     const author = await Author.findById(req.params.id)
@@ -72,7 +67,7 @@ router.get('/:id', JWTAuthMiddleware, async (req, res) => {
     res.status(404).json({ message: 'Autore non trovato!' })
   }
 })
-
+// get posts by id
 router.get('/:id/posts', JWTAuthMiddleware, async (req, res) => {
   try {
     const posts = await BlogPost.find({ author: req.params.id }).populate('author')
@@ -81,7 +76,7 @@ router.get('/:id/posts', JWTAuthMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Errore nel recupero dei post dell’autore' })
   }
 })
-
+// put 
 router.put('/:id', JWTAuthMiddleware, async (req, res) => {
   try {
     const updatedAuthor = await Author.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -90,7 +85,7 @@ router.put('/:id', JWTAuthMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Errore nella PUT' })
   }
 })
-
+// delete
 router.delete('/:id', JWTAuthMiddleware, async (req, res) => {
   try {
     const deletedAuthor = await Author.findByIdAndDelete(req.params.id)
@@ -102,7 +97,7 @@ router.delete('/:id', JWTAuthMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Errore nella DELETE' })
   }
 })
-
+// patch
 router.patch("/:id/avatar", JWTAuthMiddleware, cloudinaryUploader.single("avatar"), async (req, res) => {
   try {
     if (!req.file) {
